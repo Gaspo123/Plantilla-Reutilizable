@@ -1,3 +1,4 @@
+// src/pages/Login.jsx
 import React, { useState } from "react";
 import {
   Box,
@@ -8,10 +9,18 @@ import {
   Paper,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const { login } = useAuth();
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    nombre: "",
+  });
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -21,16 +30,19 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validación simple
-    if (!form.email || !form.password) {
+    const { email, password, nombre } = form;
+
+    // Validación básica
+    if (!email || !password || !nombre) {
       setError("Todos los campos son obligatorios");
       return;
     }
 
-    // Simular login exitoso (esto luego se conecta al backend)
-    console.log("🟢 Usuario logueado:", form);
+    // Simulación de login (podés reemplazar por llamada al backend)
+    login({ email, nombre });
+    toast.success(`Bienvenido, ${nombre}! Has iniciado sesión correctamente.`);
     setError("");
-    navigate("/"); // Redirigir al home
+    navigate("/dashboard");
   };
 
   return (
@@ -39,7 +51,17 @@ const Login = () => {
         <Typography variant="h5" align="center" gutterBottom>
           Iniciar Sesión
         </Typography>
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
+          <TextField
+            fullWidth
+            label="Nombre"
+            name="nombre"
+            value={form.nombre}
+            onChange={handleChange}
+            margin="normal"
+            required
+          />
           <TextField
             fullWidth
             label="Correo electrónico"
@@ -60,11 +82,13 @@ const Login = () => {
             margin="normal"
             required
           />
+
           {error && (
             <Typography color="error" sx={{ mt: 1 }}>
               {error}
             </Typography>
           )}
+
           <Button
             type="submit"
             fullWidth

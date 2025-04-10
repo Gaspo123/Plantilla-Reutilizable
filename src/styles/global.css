@@ -1,6 +1,101 @@
-/* Estilos generales globales */
-body {
+/* Reset base */
+* {
   margin: 0;
-  font-family: "Arial", sans-serif;
-  background-color: #f2f2f2;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tipografía y fondo */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f9f6f7, #e8f0fe);
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+}
+
+/* Estilo de botones */
+button,
+.MuiButton-root {
+  background: linear-gradient(135deg, #92c7cf, #aad7d9);
+  border: none;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover,
+.MuiButton-root:hover {
+  background: linear-gradient(135deg, #79b4b7, #a5dee5);
+}
+
+/* Tarjetas */
+.MuiCard-root {
+  background: linear-gradient(145deg, #ffffff, #f0f4ff);
+  border-radius: 20px !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06) !important;
+  transition: transform 0.3s ease;
+}
+
+.MuiCard-root:hover {
+  transform: scale(1.02);
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #37517e;
+  letter-spacing: 1px;
+}
+
+/* Inputs */
+input,
+.MuiInputBase-root {
+  border-radius: 10px !important;
+  background-color: #f8f9fd !important;
+}
+
+/* Toast (Sonner) ajustes */
+.toaster {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+/* Navbar */
+.MuiAppBar-root {
+  background: linear-gradient(90deg, #a1c4fd, #c2e9fb);
+  color: #1a1a1a;
+  font-weight: bold;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(to right, #dff6ff, #ffffff);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Contenedor central pastel con degradado */
+.central-container {
+  background: linear-gradient(135deg, #2d913c, #d11144, #402ea7);
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+  margin: 2rem auto;
+  max-width: 1100px;
 }
