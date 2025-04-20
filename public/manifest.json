@@ -1,0 +1,23 @@
+{
+  "name": "PLANTILLA REUTILIZABLE",
+  "short_name": "ReactBase",
+  "description": "Una plantilla profesional y escalable hecha con React + Vite + MUI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#90caf9",
+  "orientation": "portrait",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

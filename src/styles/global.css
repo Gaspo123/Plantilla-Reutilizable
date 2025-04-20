@@ -18,7 +18,7 @@ body {
 /* Estilo de botones */
 button,
 .MuiButton-root {
-  background: linear-gradient(135deg, #92c7cf, #aad7d9);
+  background: linear-gradient(135deg, #34b6ca, #aad7d9);
   border: none;
   color: white;
   padding: 0.6rem 1.2rem;

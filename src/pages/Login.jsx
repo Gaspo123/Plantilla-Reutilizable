@@ -1,106 +1,68 @@
-// src/pages/Login.jsx
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  TextField,
-  Typography,
-  Paper,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import { useAuth } from "../context/AuthContext.jsx";
+import React, { useState } from 'react';
+import { Box, TextField, Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-    nombre: "",
-  });
-  const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = e => {
     e.preventDefault();
 
-    const { email, password, nombre } = form;
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.email === email && user.password === password);
 
-    // Validación básica
-    if (!email || !password || !nombre) {
-      setError("Todos los campos son obligatorios");
-      return;
+    if (user) {
+      login({ email: user.email, nombre: user.name }); // guardar en contexto
+      navigate('/dashboard');
+    } else {
+      setError('Credenciales incorrectas o usuario no registrado');
     }
-
-    // Simulación de login (podés reemplazar por llamada al backend)
-    login({ email, nombre });
-    toast.success(`Bienvenido, ${nombre}! Has iniciado sesión correctamente.`);
-    setError("");
-    navigate("/dashboard");
   };
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ mt: 8, p: 4 }}>
-        <Typography variant="h5" align="center" gutterBottom>
-          Iniciar Sesión
-        </Typography>
+    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 5 }}>
+      <Typography variant="h4" gutterBottom>
+        Iniciar sesión
+      </Typography>
+      {error && <Typography color="error">{error}</Typography>}
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
-          <TextField
-            fullWidth
-            label="Nombre"
-            name="nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
-          <TextField
-            fullWidth
-            label="Correo electrónico"
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
-          <TextField
-            fullWidth
-            label="Contraseña"
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
+      <form onSubmit={handleLogin}>
+        <TextField
+          label="Correo electrónico"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+        />
+        <TextField
+          label="Contraseña"
+          type="password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
+        <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+          Iniciar sesión
+        </Button>
+      </form>
 
-          {error && (
-            <Typography color="error" sx={{ mt: 1 }}>
-              {error}
-            </Typography>
-          )}
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3 }}
-            color="primary"
-          >
-            Ingresar
-          </Button>
-        </Box>
-      </Paper>
-    </Container>
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        ¿Aún no tienes cuenta?{' '}
+        <Button onClick={() => navigate('/register')} sx={{ padding: 0 }}>
+          Regístrate
+        </Button>
+      </Typography>
+    </Box>
   );
 };
 
